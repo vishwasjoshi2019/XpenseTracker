@@ -1,0 +1,36 @@
+.App {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  .wallet-info,
+  .add-expense-form,
+  .expense-list,
+  .expense-summary,
+  .expense-trends {
+    margin-bottom: 20px;
+  }
+  
+  input,
+  button {
+    padding: 10px;
+    margin: 5px;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .expense-list div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
