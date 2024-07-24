@@ -9,7 +9,7 @@ import './ExpenseTracker.css';
 
 const ExpenseTracker = () => {
   const [walletBalance, setWalletBalance] = useState(() => parseFloat(localStorage.getItem('walletBalance')) || 5000);
-  const [expenses, setExpenses] = useState(() => JSON.parse(localStorage.getItem('expenses')) || []);
+  const [expenses, setExpenses] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentExpense, setCurrentExpense] = useState(null);
 
