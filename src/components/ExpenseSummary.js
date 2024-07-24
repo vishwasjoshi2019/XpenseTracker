@@ -1,31 +1,33 @@
 import React from 'react';
-import { PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import './ExpenseSummary.css';
 
 const ExpenseSummary = ({ expenses }) => {
-  const data = [
-    { name: 'Food', value: expenses.filter(e => e.category === 'Food').reduce((a, b) => a + b.amount, 0) },
-    { name: 'Entertainment', value: expenses.filter(e => e.category === 'Entertainment').reduce((a, b) => a + b.amount, 0) },
-    { name: 'Travel', value: expenses.filter(e => e.category === 'Travel').reduce((a, b) => a + b.amount, 0) },
-  ];
+  // Aggregate expenses by category
+  const aggregatedExpenses = expenses.reduce((acc, expense) => {
+    const found = acc.find(item => item.category === expense.category);
+    if (found) {
+      found.amount += expense.amount;
+    } else {
+      acc.push({ category: expense.category, amount: expense.amount });
+    }
+    return acc;
+  }, []);
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
+  // Sort expenses by amount in descending order
+  const sortedExpenses = aggregatedExpenses.sort((a, b) => b.amount - a.amount);
 
   return (
-    <PieChart width={400} height={400}>
-      <Pie
-        data={data}
-        cx={200}
-        cy={200}
-        labelLine={false}
-        outerRadius={80}
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-    </PieChart>
+    <div className="expense-summary-container">
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart layout="vertical" data={sortedExpenses}>
+          <XAxis type="number" hide />
+          <YAxis dataKey="category" type="category" width={80} />
+          <Tooltip />
+          <Bar dataKey="amount" fill="#8884d8" barSize={20} radius={[0, 10, 10, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 

@@ -1,0 +1,113 @@
+.expense-list-container {
+    width: 738.33px;
+    height: 345.03px;
+    top: 440.97px;
+    left: 32px;
+    gap: 0px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    background: #FFFFFF;
+  }
+  
+  .expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .expense-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .expense-title {
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21.79px;
+    text-align: left;
+    color: #000000;
+  }
+  
+  .expense-date {
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21.79px;
+    text-align: left;
+    color: #9B9B9B;
+  }
+  
+  .expense-amount {
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 21.79px;
+    text-align: left;
+    color: #F4BB4A;
+  }
+  
+  .expense-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .edit-icon, .delete-icon {
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .delete-icon {
+    color: #FF5C5C;
+  }
+  
+  .edit-icon {
+    color: #FFB84D;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    background: none;
+    border: none;
+    color: #3B3B3B;
+    cursor: pointer;
+    font-size: 24px;
+    margin: 0 10px;
+  }
+  
+  .pagination button:hover {
+    color: #3B3B3B;
+  }
+  
+  .pagination span {
+    font-size: 18px;
+    background: #43967B;
+    color: #FFFFFF;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    cursor: pointer;
+  }
+  
+  .pagination span:hover {
+    background: #43967B;
+  }
+  
+  .expense-item:not(:last-child) {
+    border-bottom: 1px solid #E0E0E0;
+  }
+  

@@ -1,29 +1,56 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import "./ExpenseTrends.css";
 
-const ExpenseTrends = ({ expenses }) => {
-  const data = [
-    { name: 'Food', value: expenses.filter(e => e.category === 'Food').reduce((a, b) => a + b.amount, 0) },
-    { name: 'Entertainment', value: expenses.filter(e => e.category === 'Entertainment').reduce((a, b) => a + b.amount, 0) },
-    { name: 'Travel', value: expenses.filter(e => e.category === 'Travel').reduce((a, b) => a + b.amount, 0) },
-  ];
+const COLORS = ['#FFBB28', '#FF8042','#0088FE', '#00C49F'];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <BarChart
-      width={500}
-      height={300}
-      data={data}
-      margin={{
-        top: 5, right: 30, left: 20, bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="value" fill="#8884d8" />
-    </BarChart>
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
+
+const ExpenseTrends = ({ expenses }) => {
+  // Transform data
+  const categoryTotals = expenses.reduce((acc, expense) => {
+    const { category, amount } = expense;
+    if (!acc[category]) {
+      acc[category] = 0;
+    }
+    acc[category] += amount;
+    return acc;
+  }, {});
+
+  const data = Object.entries(categoryTotals).map(([name, value]) => ({ name, value }));
+
+  return (
+    <div className="pieChartContainer">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 
