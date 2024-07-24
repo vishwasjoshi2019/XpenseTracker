@@ -6,12 +6,16 @@ import EditExpenseModal from '../modals/EditExpenseModal';
 import AddIncome from './AddIncome';
 import AddExpense from './AddExpense';
 import './ExpenseTracker.css';
+import { SnackbarProvider, useSnackbar } from 'notistack'
 
 const ExpenseTracker = () => {
   const [walletBalance, setWalletBalance] = useState(() => parseFloat(localStorage.getItem('walletBalance')) || 5000);
   const [expenses, setExpenses] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentExpense, setCurrentExpense] = useState(null);
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
 
   useEffect(() => {
     localStorage.setItem('walletBalance', walletBalance);
@@ -20,7 +24,7 @@ const ExpenseTracker = () => {
 
   const addExpense = (expense) => {
     if (walletBalance - expense.amount < 0) {
-      alert('Insufficient Balance');
+      enqueueSnackbar('Insufficient Amount')
       return;
     }
     setExpenses([...expenses, expense]);
